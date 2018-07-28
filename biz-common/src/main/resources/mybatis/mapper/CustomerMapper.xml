@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sapling.shop.biz.common.mybatis.mapper.CustomerMapper">
+  <resultMap id="BaseResultMap" type="com.sapling.shop.biz.common.mybatis.model.Customer">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="head_img_url" jdbcType="VARCHAR" property="headImgUrl" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
+    <result column="modify_by" jdbcType="BIGINT" property="modifyBy" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from customer
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sapling.shop.biz.common.mybatis.model.Customer">
+    insert into customer (id, name, nick_name, 
+      phone, email, head_img_url, 
+      password, status, gmt_create, 
+      create_by, gmt_modify, modify_by, 
+      memo)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{headImgUrl,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=BIGINT}, #{gmtModify,jdbcType=TIMESTAMP}, #{modifyBy,jdbcType=BIGINT}, 
+      #{memo,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sapling.shop.biz.common.mybatis.model.Customer">
+    update customer
+    set name = #{name,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      head_img_url = #{headImgUrl,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=BIGINT},
+      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      modify_by = #{modifyBy,jdbcType=BIGINT},
+      memo = #{memo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, name, nick_name, phone, email, head_img_url, password, status, gmt_create, 
+    create_by, gmt_modify, modify_by, memo
+    from customer
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, nick_name, phone, email, head_img_url, password, status, gmt_create, 
+    create_by, gmt_modify, modify_by, memo
+    from customer
+  </select>
+
+  <select id="selectByUserName" resultMap="BaseResultMap">
+    select id, name, nick_name, phone, email, head_img_url, password, status, gmt_create,
+    create_by, gmt_modify, modify_by, memo
+    from customer
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -1,0 +1,10 @@
+
+ext{
+    group_name = 'com.sapling'
+    project_name = 'shop'
+    project_version = '1.0-SNAPSHOT'
+    version_junit = '4.12'
+    version_slf4j = '1.7.20'
+    version_springboot = '2.0.2.RELEASE'
+    version_springdata = '2.0.8.RELEASE'
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sapling.shop.biz.common.mybatis.mapper.SysSessionTokenMapper">
+  <resultMap id="BaseResultMap" type="com.sapling.shop.biz.common.mybatis.model.SysSessionToken">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="lst_active_time" jdbcType="BIGINT" property="lstActiveTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_session_token
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sapling.shop.biz.common.mybatis.model.SysSessionToken">
+    insert into sys_session_token (id, key, content, 
+      lst_active_time)
+    values (#{id,jdbcType=BIGINT}, #{key,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{lstActiveTime,jdbcType=BIGINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sapling.shop.biz.common.mybatis.model.SysSessionToken">
+    update sys_session_token
+    set key = #{key,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      lst_active_time = #{lstActiveTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, key, content, lst_active_time
+    from sys_session_token
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, key, content, lst_active_time
+    from sys_session_token
+  </select>
+</mapper>
