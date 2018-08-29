@@ -66,6 +66,15 @@ public class StringUtil {
         return sb.toString();
     }
 
+    public static String lowerFirstLetter(String value){
+        if (isEmpty(value)) {
+            return value;
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(value.substring(0, 1).toLowerCase()).append(value.substring(1));
+        return sb.toString();
+    }
+
     public static String toCamel(String value) {
         if (isEmpty(value)) {
             return value;

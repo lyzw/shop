@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 public class BaseRequest<T> implements Serializable {
 
-    private static final Long serialVersionUID = 1l;
+    private static final Long serialVersionUID = 1L;
 
     private Long requestTime;
 

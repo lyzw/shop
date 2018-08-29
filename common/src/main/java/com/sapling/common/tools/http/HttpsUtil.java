@@ -2,6 +2,7 @@ package com.sapling.common.tools.http;
 
 
 import com.sapling.common.tools.common.StringUtil;
+import org.springframework.http.HttpStatus;
 
 import javax.net.ssl.*;
 import javax.servlet.http.HttpServletRequest;
@@ -12,12 +13,17 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
-
+/**
+ * @author zhouwei
+ * @version v1.0
+ * @createon 2018-08-07
+ * @since v1.0
+ */
 public class HttpsUtil {
     private static final String METHOD_POST = "POST";
     private static final String DEFAULT_CHARSET = "utf-8";
-    private static final int connectTimeout = 6000;
-    private static final int readTimeout = 6000;
+    private static final int CONNECT_TIMEOUT = 6000;
+    private static final int READ_TIMEOUT = 6000;
 
     public static String doPost(String url, String str) {
         String charset = DEFAULT_CHARSET;
@@ -35,27 +41,28 @@ public class HttpsUtil {
 
             conn = getConnection(new URL(url), METHOD_POST, ctype);
             conn.setHostnameVerifier(new HostnameVerifier() {
-
-
+                @Override
                 public boolean verify(String hostname, SSLSession session) {
                     return true;
                 }
             });
-            conn.setConnectTimeout(connectTimeout);
-            conn.setReadTimeout(readTimeout);
+            conn.setConnectTimeout(CONNECT_TIMEOUT);
+            conn.setReadTimeout(READ_TIMEOUT);
 
 
             out = conn.getOutputStream();
             out.write(content);
             rsp = getResponseAsString(conn);
         } catch (Exception e) {
-//            log.error("REQUEST_RESPONSE_ERROR, URL = " + url, e);
         } finally {
             try {
-                if (out != null) out.close();
-                if (conn != null) conn.disconnect();
+                if (out != null) {
+                    out.close();
+                }
+                if (conn != null) {
+                    conn.disconnect();
+                }
             } catch (Exception e) {
-//                log.error("REQUEST_RESPONSE_ERROR, URL = " + url, e);
             }
         }
 
@@ -72,7 +79,7 @@ public class HttpsUtil {
 
 
             //读取响应
-            if (httpConn.getResponseCode() == 200) {
+            if (httpConn.getResponseCode() == HttpStatus.OK.value()) {
                 StringBuffer content = new StringBuffer();
                 String tempStr = "";
                 in = new BufferedReader(new InputStreamReader(httpConn.getInputStream()));
@@ -106,33 +113,30 @@ public class HttpsUtil {
             SSLContext ctx = SSLContext.getInstance("TLS");
             ctx.init(new KeyManager[0], new TrustManager[]{new DefaultTrustManager()}, new SecureRandom());
             SSLContext.setDefault(ctx);
-
-
             conn = getConnection(new URL(url), "DELETE", ctype);
             conn.setHostnameVerifier(new HostnameVerifier() {
-
-
+                @Override
                 public boolean verify(String hostname, SSLSession session) {
                     return true;
                 }
             });
-            conn.setConnectTimeout(connectTimeout);
-            conn.setReadTimeout(readTimeout);
+            conn.setConnectTimeout(CONNECT_TIMEOUT);
+            conn.setReadTimeout(READ_TIMEOUT);
 
 
             out = conn.getOutputStream();
             out.write(content);
             rsp = getResponseAsString(conn);
         } catch (Exception e) {
-//            log.error("REQUEST_RESPONSE_ERROR, URL = " + url, e);
         } finally {
-
-
             try {
-                if (out != null) out.close();
-                if (conn != null) conn.disconnect();
+                if (out != null) {
+                    out.close();
+                }
+                if (conn != null) {
+                    conn.disconnect();
+                }
             } catch (Exception e) {
-//                log.error("REQUEST_RESPONSE_ERROR, URL = " + url, e);
             }
         }
 
@@ -145,12 +149,15 @@ public class HttpsUtil {
     private static class DefaultTrustManager implements X509TrustManager {
 
 
+        @Override
         public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
         }
 
+        @Override
         public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
         }
 
+        @Override
         public X509Certificate[] getAcceptedIssuers() {
             return null;
         }
@@ -162,8 +169,6 @@ public class HttpsUtil {
         conn.setRequestMethod(method);
         conn.setDoInput(true);
         conn.setDoOutput(true);
-//        conn.setRequestProperty("Accept", "text/xml,text/javascript,text/html");
-//        conn.setRequestProperty("User-Agent", "stargate");
         conn.setRequestProperty("Content-Type", ctype);
         return conn;
     }
@@ -176,7 +181,8 @@ public class HttpsUtil {
         } else {
             String msg = getStreamAsString(es, charset);
             if (StringUtil.isEmpty(msg)) {
-                throw new IOException(conn.getResponseCode() + ":" + conn.getResponseMessage());
+                throw new IOException(conn.getResponseCode() + ":" +
+                        conn.getResponseMessage());
             } else {
                 throw new IOException(msg);
             }
@@ -237,7 +243,7 @@ public class HttpsUtil {
         }
         StringBuffer sb = new StringBuffer();
         InputStream inputStream = request.getInputStream();
-        if (inputStream == null){
+        if (inputStream == null) {
             return null;
         }
         byte[] bytes = new byte[1024];

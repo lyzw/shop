@@ -1,6 +1,7 @@
 package com.sapling.shop.biz.common.exception;
 
 import com.sapling.common.exception.SaplingException;
+import com.sapling.shop.biz.common.constants.ReturnCode;
 
 /**
  * @author weizhou
@@ -9,6 +10,7 @@ import com.sapling.common.exception.SaplingException;
  * @since v1.0
  */
 public class ShopBaseException extends SaplingException {
+
 
     public ShopBaseException(String errorCode, String errorMsg) {
         super(errorCode, errorMsg);

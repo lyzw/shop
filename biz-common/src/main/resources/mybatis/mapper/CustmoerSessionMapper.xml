@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sapling.shop.biz.common.mybatis.mapper.CustmoerSessionMapper">
+  <resultMap id="BaseResultMap" type="com.sapling.shop.biz.common.mybatis.model.CustmoerSession">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from custmoer_session
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sapling.shop.biz.common.mybatis.model.CustmoerSession">
+    insert into custmoer_session (id, token, content, 
+      expire_time)
+    values (#{id,jdbcType=BIGINT}, #{token,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{expireTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sapling.shop.biz.common.mybatis.model.CustmoerSession">
+    update custmoer_session
+    set token = #{token,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      expire_time = #{expireTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, token, content, expire_time
+    from custmoer_session
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, token, content, expire_time
+    from custmoer_session
+  </select>
+</mapper>

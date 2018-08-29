@@ -34,7 +34,7 @@ public class CustomerService {
         if (StringUtil.isEmpty(userName, true)) {
             throw new IllegalArgumentException("用户名不能为空");
         }
-        return !(detail(userName) == null);
+        return detail(userName) != null;
     }
 
 
@@ -64,20 +64,29 @@ public class CustomerService {
         return customerMapper.selectByUserName(userName);
     }
 
+    /**
+     * 新增用户
+     *
+     * @param userName 用户名
+     * @param password 密码
+     * @return
+     */
     public Customer addCustomer(String userName, String password) {
         //校验参数是否为空
         if (StringUtil.isEmpty(userName, true) ||
-                StringUtil.isEmpty(password, true))
+                StringUtil.isEmpty(password, true)) {
             throw new ShopBaseException(ReturnCode.ILLEGAL_ARGUMENT, "用户名或密码不能为空");
+        }
         //检验用户名是否被占用
-        if (ifUserNameExists(userName))
+        if (ifUserNameExists(userName)) {
             throw new ShopBaseException(ReturnCode.RECORD_ALREADY_EXISTS, "用户名已经被使用");
+        }
         String encodePassword = MD5Util.md5(userName + password);
         Customer customer = new Customer();
         customer.setName(userName);
         customer.setNickName(userName);
-        customer.setPassword(password);
-        customer.setStatus(Constants.CUSTOMER_STATUS_OK);
+        customer.setPassword(encodePassword);
+        customer.setStatus(Constants.STATUS_OK);
         customer.setGmtCreate(new Date());
         customer.setGmtModify(new Date());
         customerMapper.insert(customer);

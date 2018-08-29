@@ -1,7 +1,11 @@
 package com.sapling.shop.biz.common.web;
 
+import com.sapling.shop.biz.common.constants.Constants;
+import com.sapling.shop.biz.common.mybatis.model.Customer;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author weizhou
@@ -11,8 +15,5 @@ import org.springframework.web.bind.annotation.InitBinder;
  */
 public class BaseController<T> {
 
-    @InitBinder
-    public void initBinder(WebDataBinder binder) throws Exception {
 
-    }
 }

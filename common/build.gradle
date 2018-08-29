@@ -30,6 +30,7 @@ dependencies {
 
 //    compile group: 'redis.clients', name: 'jedis', version: version_jedis
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: version_httpclient
+    compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.2.1'
 
 }
 

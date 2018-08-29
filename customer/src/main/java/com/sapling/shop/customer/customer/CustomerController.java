@@ -2,10 +2,14 @@ package com.sapling.shop.customer.customer;
 
 import com.sapling.common.exception.SaplingException;
 import com.sapling.shop.biz.common.constants.ReturnCode;
+import com.sapling.shop.biz.common.mybatis.model.Customer;
 import com.sapling.shop.biz.common.web.BaseResponse;
+import com.sapling.shop.biz.common.web.CustLogedInBaseController;
 import com.sapling.shop.customer.customer.vo.CustomerRegisterRequest;
 import com.sapling.shop.customer.customer.vo.CustomerUpdRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -18,11 +22,10 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("customer")
-public class CustomerController {
+public class CustomerController extends CustLogedInBaseController {
 
     @Autowired
     CustomerService customerService;
-
 
     @PutMapping
     public BaseResponse update(@RequestBody CustomerUpdRequest request) {
@@ -42,7 +45,8 @@ public class CustomerController {
         if (customerService.ifUserNameExists(userName)) {
             throw new SaplingException(ReturnCode.RECORD_ALREADY_EXISTS, "用户名已经存在");
         }
-        return BaseResponse.success(null);
+        Customer customer = customerService.addCustomer(registerRequest.getData().getUserName(),registerRequest.getData().getPassword());
+        return BaseResponse.success(customer);
     }
 
 
@@ -57,6 +61,13 @@ public class CustomerController {
         return BaseResponse.success(customerService.detail(userId));
     }
 
+
+    @GetMapping(value = "self")
+    public BaseResponse getCustByToken(){
+        return BaseResponse.success(getCustomer());
+    }
+
+
     /**
      * 根据用户名查询用户信息
      *
@@ -67,5 +78,6 @@ public class CustomerController {
     public BaseResponse detailByUserName(String userName) {
         return BaseResponse.success(customerService.detail(userName));
     }
+
 
 }

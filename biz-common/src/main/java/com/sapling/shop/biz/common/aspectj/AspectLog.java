@@ -1,4 +1,4 @@
-package com.sapling.shop.biz.common.config;
+package com.sapling.shop.biz.common.aspectj;
 
 import com.sapling.shop.biz.common.web.BaseResponse;
 import org.aspectj.lang.JoinPoint;
@@ -21,8 +21,6 @@ import java.util.Map;
  * @author zhangjun
  * @create 2017/11/8
  */
-//@Component
-//@Aspect
 public class AspectLog {
     private static final Logger LOGGER = LoggerFactory.getLogger(AspectLog.class);
 
@@ -35,7 +33,7 @@ public class AspectLog {
     @Before("execute()")
     public void before(JoinPoint joinPoint) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        Map<String, String> parameters = new HashMap<>();
+        Map<String, String> parameters = new HashMap<>(15);
         Method method = signature.getMethod();
         MDC.put("method", method.getName());
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+    <property name="LOG_HOME" value="logs"/>
+    <property name="appName" value="itoaService"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-5level [%logger{50}] [%file:%line] - %msg%n</pattern>
+        </encoder>
+
+    </appender>
+
+    <logger name="ch.qos.logback.classic.joran.action.LoggerAction" level="error"/>
+    <logger name="slick.compiler.QueryCompiler" level="error"/>
+    <logger name="slick.compiler.ExpandTables" level="error"/>
+    <logger name="slick.compiler.ExpandSums" level="error"/>
+    <logger name="slick.relational.ResultConverterCompiler" level="error"/>
+    <logger name="slick.compiler.CodeGen" level="error"/>
+    <logger name="slick.compiler.MergeToComprehensions" level="error"/>
+    <logger name="slick.compiler.FlattenProjections" level="error"/>
+    <logger name="slick.compiler.QueryCompilerBenchmark" level="error"/>
+    <logger name="slick.compiler.RemoveFieldNames" level="error"/>
+    <logger name="slick.compiler.HoistClientOps" level="error"/>
+    <logger name="slick.compiler.CreateResultSetMapping" level="error"/>
+    <logger name="slick.compiler.CreateAggregates" level="error"/>
+    <root level="error" >
+        <appender-ref ref="console" >
+        </appender-ref>
+    </root>
+</configuration>

@@ -30,6 +30,8 @@ public class FileUtil {
     /** dos格式文件分隔符 **/
     public static final String FILE_SEPERATOR_DOS = "\\\\";
 
+    public static final String PACKAGE_SEPERATOR = ".";
+
 
     /**
      * 根据给定的文件名或者路径获取其父目录
@@ -182,10 +184,10 @@ public class FileUtil {
         if (StringUtil.isEmpty(packageName)) {
             return null;
         }
-        if (packageName.indexOf(".") == -1) {
+        if (packageName.indexOf(PACKAGE_SEPERATOR) == -1) {
             return packageName;
         }
-        return packageName.replace(".", separator);
+        return packageName.replace(PACKAGE_SEPERATOR, separator);
     }
 
     /**

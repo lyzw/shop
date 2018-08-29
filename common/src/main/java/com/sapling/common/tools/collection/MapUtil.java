@@ -4,6 +4,7 @@ package com.sapling.common.tools.collection;
 import com.sapling.common.tools.common.ReflectUtil;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,7 +33,27 @@ public class MapUtil {
      * @return 对象数据的map
      */
     public static Map objectToMap(Object object, boolean includeGetMethod) {
-        return ReflectUtil.getFieldValueMap(object);
+        Map retMap = ReflectUtil.getFieldValueMap(object);
+        if (includeGetMethod){
+            Map getValues = ReflectUtil.getAllGetMthodValueMap(object);
+            retMap.putAll(getValues);
+        }
+        return retMap;
+    }
+
+    /**
+     *
+     * @param object
+     * @param includeGetMethod
+     * @param excludeFileds
+     * @return
+     */
+    public static Map objectToMap(Object object, boolean includeGetMethod, List<String> excludeFileds) {
+        Map map = objectToMap(object, includeGetMethod);
+        if (excludeFileds != null && excludeFileds.size() > 0) {
+            excludeFileds.forEach(item -> map.remove(item));
+        }
+        return map;
     }
 
     /**
@@ -104,7 +125,6 @@ public class MapUtil {
         }
         return map.get(key);
     }
-
 
 
     public static class MapWrapper<K, V> {

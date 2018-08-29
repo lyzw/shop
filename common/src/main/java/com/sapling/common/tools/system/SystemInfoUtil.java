@@ -2,7 +2,6 @@ package com.sapling.common.tools.system;
 
 import java.util.Properties;
 
-import sun.awt.OSInfo;
 
 /**
  * 系统工具类
@@ -338,11 +337,4 @@ public class SystemInfoUtil {
 
 
 
-    public static String getEnvProSeperator(){
-        if (OSInfo.getOSType().equals(OSInfo.OSType.WINDOWS)){
-            return ";";
-        }else {
-            return ":";
-        }
-    }
 }

@@ -20,6 +20,8 @@ buildscript {
 plugins {
     id 'java'
     id 'idea'
+    id 'checkstyle'
+
 }
 
 
@@ -63,15 +65,18 @@ allprojects {
         compile.exclude module: "lettuce"
     }
     dependencies {
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
+        testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+
         compile('org.springframework.boot:spring-boot-starter-web')
         compile('org.springframework.boot:spring-boot-starter-redis')
-        // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-redis
         compile group: 'org.springframework.boot', name: 'spring-boot-starter-redis', version: '1.4.7.RELEASE'
 
 //        compile("redis.clients:jedis")
         compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
         compile 'javax.servlet:javax.servlet-api:3.1.0'
         compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+        compile group: 'com.alibaba', name: 'fastjson', version: '1.2.47'
 
     }
 

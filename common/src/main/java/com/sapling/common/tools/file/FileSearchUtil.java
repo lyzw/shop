@@ -119,7 +119,7 @@ public class FileSearchUtil {
      * @return
      */
     public static Set<Class> findClassesInPath(String fileName) {
-        return findClassesInPath(fileName, null);
+        return findClassesInPath(fileName, new String[]{});
     }
 
     /**

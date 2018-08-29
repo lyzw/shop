@@ -1,6 +1,8 @@
 package com.sapling.shop;
 
 import com.sapling.shop.biz.common.filter.AuthTokenFilter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,6 +11,8 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+
+import javax.servlet.FilterConfig;
 
 /**
  * @author weizhou
@@ -24,15 +28,20 @@ import org.springframework.context.annotation.Configuration;
 
 public class ApplicationStarter {
 
+
+    @Value("${auth.exclude.urls:11}")
+    String excludeUrls;
+
     public static void main(String[] args) {
         SpringApplication.run(ApplicationStarter.class,args);
     }
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
+    public FilterRegistrationBean filterRegistrationBean(@Autowired AuthTokenFilter tokenAuthorFilter) {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-        AuthTokenFilter tokenAuthorFilter = new AuthTokenFilter();
         registrationBean.setFilter(tokenAuthorFilter);
         return registrationBean;
     }
+
+
 }

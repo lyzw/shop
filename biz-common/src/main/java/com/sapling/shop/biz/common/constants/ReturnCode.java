@@ -21,5 +21,10 @@ public class ReturnCode {
     //9+为系统级别异常
     public static final String SYSTEM_ERROR = "999999";
 
+    //未登陆
+    public static final String UNAUTHORIZED = "900000";
+    //权限不足
+    public static final String NOT_ENOUGH_PERMISSION = "900001";
+
     public static final String RET_MSG_SUCCESS = "SUCCESS";
 }

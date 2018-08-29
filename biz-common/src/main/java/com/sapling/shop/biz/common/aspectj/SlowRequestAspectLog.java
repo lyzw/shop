@@ -1,7 +1,6 @@
-package com.sapling.shop.biz.common.config;
+package com.sapling.shop.biz.common.aspectj;
 
 import com.sapling.shop.biz.common.web.BaseResponse;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
 
 /**
  * 慢请求日志拦截器

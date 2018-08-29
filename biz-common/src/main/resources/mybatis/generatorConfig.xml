@@ -45,7 +45,7 @@
         <!--enableSelectByExample="false"-->
         <!--enableUpdateByExample="false"-->
         <!-- sql占位符，表示所有的表 -->
-        <table tableName="sys_session_token" >
+        <table tableName="customer_session" >
 
         </table>
     </context>

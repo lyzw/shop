@@ -1,10 +1,13 @@
-package com.sapling.shop.biz.common.web;
+package com.sapling.shop.biz.common.web.advice;
 
 import com.sapling.common.exception.SaplingException;
 import com.sapling.shop.biz.common.constants.ReturnCode;
+import com.sapling.shop.biz.common.exception.UnAuthorizedException;
+import com.sapling.shop.biz.common.web.BaseResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author weizhou
@@ -64,6 +68,33 @@ public class BaseControllerAdvice {
     @ResponseStatus(HttpStatus.OK)
     public BaseResponse processSaplingException(HttpServletRequest request, SaplingException e) {
         return BaseResponse.fail(e.getErrorCode(), e.getErrorMsg());
+    }
+
+    /**
+     * 方法参数异常处理
+     *
+     * @param request
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(UnAuthorizedException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse processUnAuthorizedException(HttpServletRequest request, HttpServletResponse response, UnAuthorizedException e) {
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        return BaseResponse.fail(ReturnCode.UNAUTHORIZED, e.getErrorMsg());
+    }
+
+    /**
+     * 方法参数异常处理
+     *
+     * @param request
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse processHttpMessageNotReadableException(HttpServletRequest request, HttpMessageNotReadableException e) {
+        return BaseResponse.fail(ReturnCode.ILLEGAL_ARGUMENT, "参数异常");
     }
 
     /**

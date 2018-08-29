@@ -21,12 +21,12 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.sapling.shop.biz.common.mybatis.model.Customer">
-    insert into customer (id, name, nick_name, 
+    insert into customer ( name, nick_name,
       phone, email, head_img_url, 
       password, status, gmt_create, 
       create_by, gmt_modify, modify_by, 
       memo)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+    values ( #{name,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
       #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{headImgUrl,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{createBy,jdbcType=BIGINT}, #{gmtModify,jdbcType=TIMESTAMP}, #{modifyBy,jdbcType=BIGINT}, 

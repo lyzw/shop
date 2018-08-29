@@ -4,8 +4,6 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
-
 /**
  * @author weizhou
  * @version v1.0
@@ -29,6 +27,6 @@ public class ObjectUtilTest {
     @Test
     public void objectToBytes() throws IOException {
 
-        System.out.println(ByteUtil.bytesToHex(ObjectUtil.ObjectToBytes(null)));
+        System.out.println(ByteUtil.bytesToHex(ObjectUtil.objectToBytes(null)));
     }
 }

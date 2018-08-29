@@ -1,8 +1,10 @@
 package com.sapling.common.tools.common;
 
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,9 +42,14 @@ public class ReflectUtil {
      */
     public static Map<String, Object> getFieldValueMap(Object instance) {
         Class clazz = instance.getClass();
-        Map<String, Object> retMap = new HashMap<>();
-        Field[] fields = clazz.getFields();
+        Map<String, Object> retMap = new HashMap<>(15);
+        Field[] fields = clazz.getDeclaredFields();
+
         for (Field field : fields) {
+            if ("this$0".equals(field.getName()) ||
+                    "serialVersionUID".equals(field.getName())) {
+                continue;
+            }
             field.setAccessible(true);
             try {
                 retMap.put(field.getName(), field.get(instance));
@@ -50,6 +57,25 @@ public class ReflectUtil {
                 e.printStackTrace();
             }
         }
+        return retMap;
+    }
+
+    public static Map<String, Object> getAllGetMthodValueMap(Object instance) {
+        Class clazz = instance.getClass();
+        Map<String, Object> retMap = new HashMap<>(15);
+        Method[] methods = clazz.getMethods();
+        Arrays.asList(methods).forEach(method -> {
+            String name = method.getName();
+            if (name.startsWith("get") && method.getParameterCount() == 0 &&
+                    !"getClass".equals(name)) {
+                method.setAccessible(true);
+                try {
+                    retMap.put(StringUtil.lowerFirstLetter(name.substring(3)), method.invoke(instance));
+                } catch (Exception e) {
+
+                }
+            }
+        });
         return retMap;
     }
 

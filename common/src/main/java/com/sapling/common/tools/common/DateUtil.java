@@ -1,5 +1,8 @@
 package com.sapling.common.tools.common;
 
+import org.quartz.CronExpression;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -150,5 +153,12 @@ public class DateUtil {
         calendar.setTimeInMillis(timestamp/1000000);
         return calendar.getTime();
     }
+
+
+    public static String dateToCron(Date date){
+        SimpleDateFormat sdf = new SimpleDateFormat("ss mm HH dd MM ? yyyy");
+        return sdf.format(date);
+    }
+
 
 }

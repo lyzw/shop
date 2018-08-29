@@ -14,7 +14,7 @@ public class BaseResponse implements Serializable {
 
     private String retMsg;
 
-    private Object Data;
+    private Object data;
 
     private Long responseTime = System.currentTimeMillis();
 
@@ -23,11 +23,11 @@ public class BaseResponse implements Serializable {
     private String responseId;
 
     public Object getData() {
-        return Data;
+        return data;
     }
 
     public void setData(Object data) {
-        Data = data;
+        this.data = data;
     }
 
     public Long getResponseTime() {

@@ -17,7 +17,7 @@ public class FileUtil {
     public static final Integer G = 1024 * M;
 
 
-    public static final Integer maxByteSize = 10 * M;
+    public static final Integer MAX_BIT_SIZE = 10 * M;
 
 
     public static byte[] toBytes(File file) throws IOException {
@@ -27,7 +27,7 @@ public class FileUtil {
         if (!file.canRead()) {
             throw new AccessException("access permission error! ");
         }
-        if (file.getTotalSpace() > maxByteSize) {
+        if (file.getTotalSpace() > MAX_BIT_SIZE) {
             return null;
         } else {
             BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(file));

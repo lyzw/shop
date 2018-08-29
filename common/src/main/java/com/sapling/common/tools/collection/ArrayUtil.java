@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class ArrayUtil {
 
-    public static String join(List<Object> arrays, String join) {
+    public static String join(List arrays, String join) {
         StringBuilder sb = new StringBuilder();
         arrays.forEach(item -> sb.append(String.valueOf(item)).append(join));
         return sb.substring(0,sb.length()-1);

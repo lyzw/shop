@@ -81,7 +81,7 @@ public class ObjectUtil {
      * @return 字节数组
      * @throws IOException IO异常
      */
-    public static byte[] ObjectToBytes(Object object) throws IOException {
+    public static byte[] objectToBytes(Object object) throws IOException {
 //        if (object == null) {
 //            return null;
 //        }

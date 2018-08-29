@@ -35,7 +35,7 @@ public class JarUtil {
      * @return
      */
     public static Set<String> recursionListFile(String jarFileName) {
-        return recursionListFile(jarFileName,false, null);
+        return recursionListFile(jarFileName,false, new String[]{});
     }
 
     /**
@@ -77,7 +77,7 @@ public class JarUtil {
         if (jarFile == null) {
             return null;
         }
-        return recursionListFile(jarFile, false, null);
+        return recursionListFile(jarFile, false, new String[]{});
     }
 
     public static Set<String> recursionListFile(JarFile jarFile, String... packNames) {
